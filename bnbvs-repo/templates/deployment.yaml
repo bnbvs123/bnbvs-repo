@@ -1,0 +1,65 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: homepage
+data:
+  homepage.html: |
+    <html>
+      <head>
+        <title>bnbvsApp</title>
+        <link rel="stylesheet" href="./style.css"/>
+      </head>
+      <body>
+        <h1>This is Deployment One</h1>
+      </body>
+    </html>
+  style.css: |
+    body{
+    background-image: url("./img/gbackgroung.jpg");
+    }
+    .basicInfo{
+        text-align: center;
+    }
+    .main{
+        display: flex;
+    }
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: bnbvs
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: bnbvs
+  template:
+    metadata:
+      labels:
+        app: bnbvs
+    spec:
+      containers:
+      - name: bnbvs
+        image: h3xbar/bnbvs-repo:v1
+        ports:
+        - containerPort: 8080
+        volumeMounts:
+        - name: pages
+          mountPath: /templates
+      volumes:
+      - name: pages
+        configMap:
+          name: homepage
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: bnbvs
+spec:
+  type: LoadBalancer
+  ports:
+  - name: http
+    port: 8080
+    targetPort: 8080
+  selector:
+    app: bnbvs
