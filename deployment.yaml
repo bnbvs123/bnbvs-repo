@@ -65,3 +65,12 @@ spec:
     targetPort: 8080
   selector:
     app: bnbvs
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: dockerlogin
+type: Opaque
+data:
+  username: aXRzdmljdG9yZnk=
+  password: VWhleXVyMTI1MkAk
