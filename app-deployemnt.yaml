@@ -1,0 +1,42 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: bnbvs-app
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: bnbvs
+  labels:
+    app: bnbvs
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: bnbvs
+  template:
+    metadata:
+      labels:
+        app: bnbvs
+    spec:
+      containers:
+      - name: bnbvs
+        image: hackaton/app:latest
+        imagePullPolicy: Never
+        ports:
+        - containerPort: 8080
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: bnbvs
+spec:
+  type: LoadBalancer
+  ports:
+  - name: http
+    port: 80
+    targetPort: 8080
+  selector:
+    name: bnbvs
+---
+
