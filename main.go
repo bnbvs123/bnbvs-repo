@@ -11,7 +11,7 @@ func homePage(c *gin.Context) {
 }
 func main() {
 	router := gin.Default()
-	router.LoadHTMLGlob("templates/*.*")
+	router.LoadHTMLGlob("templates/*")
 	router.GET("/ping", func(c *gin.Context) {
 		c.JSON(http.StatusOK, gin.H{
 			"message": "pong",

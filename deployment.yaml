@@ -40,8 +40,7 @@ spec:
     spec:
       containers:
       - name: bnbvs
-        image: hackaton/app:latest
-        imagePullPolicy: Never
+        image: h3xbar/bnbvs-repo:v1
         ports:
         - containerPort: 8080
         volumeMounts:
