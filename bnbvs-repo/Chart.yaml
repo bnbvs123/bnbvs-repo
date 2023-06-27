@@ -1,7 +1,0 @@
-apiVersion: v2 
-name: bnbvs-app
-version: 1.0.0
-description: BNBVS's go web app hackathon
-maintainers:
-    - name: bnbvs-app
-    
