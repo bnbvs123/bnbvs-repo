@@ -40,16 +40,18 @@ spec:
     spec:
       containers:
       - name: bnbvs
-        image: h3xbar/bnbvs-repo:v1
+        image: h3xbar/bnbvs-repo:v3
+        imagePullPolicy: Never
         ports:
         - containerPort: 8080
         volumeMounts:
         - name: pages
-          mountPath: /templates
+          mountPath: /app2
       volumes:
       - name: pages
         configMap:
           name: homepage
+          defaultMode: 0777
 ---
 apiVersion: v1
 kind: Service

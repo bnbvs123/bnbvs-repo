@@ -1,23 +1,16 @@
 package main
 
 import (
+	"fmt"
+	"log"
 	"net/http"
-
-	"github.com/gin-gonic/gin"
 )
 
-func homePage(c *gin.Context) {
-	c.HTML(http.StatusOK, "homepage.html", nil)
-}
 func main() {
-	router := gin.Default()
-	router.LoadHTMLGlob("templates/*")
-	router.GET("/ping", func(c *gin.Context) {
-		c.JSON(http.StatusOK, gin.H{
-			"message": "pong",
-		})
+	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
+		http.ServeFile(w, r, "../app2/homepage.html")
 	})
-	router.GET("/", homePage)
-	router.Run() // listen and serve on 0.0.0.0:8080
 
+	fmt.Println("Server listening on port 8080...")
+	log.Fatal(http.ListenAndServe(":8080", nil))
 }
